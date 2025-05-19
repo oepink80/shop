@@ -8,6 +8,7 @@ export const Footer = () => (
   <Box
     component="footer"
     sx={{
+      marginTop: '2rem', // выравнивание по верхней границе
       bgcolor: 'background.default',
       py: 2, // отступ сверху и снизу
       textAlign: 'center',

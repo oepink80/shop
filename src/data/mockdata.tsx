@@ -8,7 +8,7 @@ export const mockProducts: ProductType[] = [
     price: 89990,
     quantity: 10, // начальное количество на складе
     category: 'smartphones',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL', // Найдите подходящее изображение на стоке
+    imageUrl: '/images/1.jpg', // Найдите подходящее изображение на стоке
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const mockProducts: ProductType[] = [
     price: 129990,
     quantity: 5, // начальное количество на складе
     category: 'laptops',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL', // То же самое
+    imageUrl: '/images/2.jpg', // То же самое
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ export const mockProducts: ProductType[] = [
     price: 59990,
     quantity: 8, // начальное количество на складе
     category: 'consoles',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL',
+    imageUrl: '/images/3.jpg', // То же самое
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ export const mockProducts: ProductType[] = [
     price: 39990,
     quantity: 12, // начальное количество на складе
     category: 'consoles',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL',
+    imageUrl: '/images/4.jpg', // То же самое
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ export const mockProducts: ProductType[] = [
     price: 34990,
     quantity: 15, // начальное количество на складе
     category: 'headphones',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL',
+    imageUrl: '/images/5.jpg', // То же самое
   },
   {
     id: 6,
@@ -53,7 +53,7 @@ export const mockProducts: ProductType[] = [
     price: 14990,
     quantity: 20, // начальное количество на складе
     category: 'accessories',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL',
+    imageUrl: '/images/6.jpg', // То же самое
   },
   {
     id: 7,
@@ -62,7 +62,7 @@ export const mockProducts: ProductType[] = [
     price: 1999,
     quantity: 30, // начальное количество на складе
     category: 'lighting',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL',
+    imageUrl: '/images/7.jpg', // То же самое
   },
   {
     id: 8,
@@ -71,7 +71,7 @@ export const mockProducts: ProductType[] = [
     price: 69990,
     quantity: 7, // начальное количество на складе
     category: 'drones',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL',
+    imageUrl: '/images/8.jpg', // То же самое
   },
   {
     id: 9,
@@ -80,7 +80,7 @@ export const mockProducts: ProductType[] = [
     price: 239990,
     quantity: 3, // начальное количество на складе
     category: 'cameras',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL',
+    imageUrl: '/images/9.jpg', // То же самое
   },
   {
     id: 10,
@@ -89,6 +89,6 @@ export const mockProducts: ProductType[] = [
     price: 59990,
     quantity: 9, // начальное количество на складе
     category: 'watches',
-    imageUrl: 'REPLACE_WITH_IMAGE_URL',
+    imageUrl: '/images/10.jpg',
   },
 ];

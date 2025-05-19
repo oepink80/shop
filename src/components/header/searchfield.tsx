@@ -9,6 +9,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   marginLeft: theme.spacing(1),
   borderRadius: theme.shape.borderRadius,
   backgroundColor: theme.palette.background.default,
+  paddingLeft: theme.spacing(0.5),
   transition: 'all 0.3s ease-in-out', // Или transition: `${theme.transitions.duration.short}ms linear`
   '& .MuiInputBase-input': {
     padding: `${theme.spacing(1)}px ${theme.spacing(1)}px`,

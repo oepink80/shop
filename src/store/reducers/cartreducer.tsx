@@ -3,6 +3,7 @@ import {
   REMOVE_FROM_CART,
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
+  CLEAR_CART,
 } from '@/types/types';
 
 import type { ProductType } from '@/types/types';
@@ -79,6 +80,9 @@ export default function cartReducer(
       }
       return state;
     }
+
+    case CLEAR_CART:
+      return { ...state, items: [] };
 
     default:
       return state;

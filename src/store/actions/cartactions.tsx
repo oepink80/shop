@@ -10,6 +10,7 @@ import {
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
   DecreaseQuantityAction,
+  CLEAR_CART,
 } from '@/types/types';
 
 export const addToCart = (product: ProductType): AddToCartAction => {
@@ -20,6 +21,12 @@ export const addToCart = (product: ProductType): AddToCartAction => {
   saveCartState(); // Сохраняем состояние корзины в localStorage
   return action;
 };
+
+export function clearCart() {
+  return {
+    type: CLEAR_CART,
+  };
+}
 
 export const removeFromCart = (productId: number): RemoveFromCartAction => {
   const action = {

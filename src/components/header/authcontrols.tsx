@@ -46,7 +46,8 @@ const AuthControls = ({ isLoggedIn }: AuthControlsProps) => {
   const dispatch = useDispatch();
 
   const logout = () => {
-    window.localStorage.removeItem('user');
+    window.localStorage.removeItem('user');   // Удаляем данные текущего пользователя
+    window.localStorage.removeItem('cart');   // Добавляем удаление корзины
     dispatch(setUserAction(null));
   };
 

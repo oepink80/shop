@@ -19,7 +19,7 @@ const loadState = () => {
   try {
     const serializedState = window.localStorage.getItem('cart'); // Читаем только состояние корзины
     if (serializedState === null) return undefined;
-    return { cart: JSON.parse(serializedState) }; // Возвращаем объект с ключом 'cart'
+    return { cart: JSON.parse(serializedState) }; // Возвращаем объект с ключом 'order'
   } catch (err) {
     console.error('Error loading from local storage:', err);
     return undefined;

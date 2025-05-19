@@ -21,6 +21,30 @@ export interface UserState {
   // Можно добавить любые нужные свойства
 }
 
+export interface OrderInputData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  paymentMethod: 'card' | 'cash';
+}
+
+type OrderFormValues = {
+  id: string;
+  createdAt: string;
+  totalAmount: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  paymentMethod: 'card' | 'cash';
+  products: Array<ProductType>;
+};
+
+export type { OrderFormValues };
+
 export interface RootState {
   products: ProductType[]; // Товарный список
   cart: CartState; // Корзина
@@ -33,6 +57,7 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const SET_PRODUCTS = 'SET_PRODUCTS';
+export const CLEAR_CART = 'CLEAR_CART';
 
 // Интерфейсы экшенов
 

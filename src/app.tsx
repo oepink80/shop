@@ -1,5 +1,6 @@
 // src/app.tsx
 
+import { Container } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
@@ -9,9 +10,9 @@ import { Layout } from '@/components/layout/layout';
 import { useAuth } from '@/hooks/auth.hook';
 import ProtectedRoutes from '@/routes/protected';
 import PublicRoutes from '@/routes/public';
+import { RootState } from '@/types/types';
 
 import Shoptheme from './themes/theme';
-import { RootState } from '@/types/types';
 
 export const App = () => {
   const { initializing } = useAuth(); // Берём состояние инициализации
@@ -25,7 +26,9 @@ export const App = () => {
   return (
     <ThemeProvider theme={Shoptheme}>
       <Router>
-        <Layout>{!loggedIn ? <PublicRoutes /> : <ProtectedRoutes />}</Layout>
+        <Container>
+          <Layout>{!loggedIn ? <PublicRoutes /> : <ProtectedRoutes />}</Layout>
+        </Container>
       </Router>
     </ThemeProvider>
   );
