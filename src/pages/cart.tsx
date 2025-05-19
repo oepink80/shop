@@ -71,6 +71,8 @@ const CartItem = ({ product }: CartItemProps): React.JSX.Element => {
 
 export default function CartPage() {
   const cartItems = useSelector((state: any) => state.cart.items);
+  const user = useSelector((state: any) => state.user);
+  const loggedIn = Boolean(user);
 
   let totalPrice = 0;
   if (cartItems && cartItems.length > 0) {
@@ -109,11 +111,19 @@ export default function CartPage() {
       <Divider sx={{ my: 2 }} />
       <Box textAlign="right" mt={2}>
         <Typography variant="h5">Общая сумма: {totalPrice} ₽</Typography>
-        <Link to="/checkout" style={{ textDecoration: 'none' }}>
-          <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-            Оформить заказ
-          </Button>
-        </Link>
+        {!loggedIn ? (
+          <Link to="/login" style={{ textDecoration: 'none' }}>
+            <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+              Авторизуйтесь
+            </Button>
+          </Link>
+        ) : (
+          <Link to="/checkout" style={{ textDecoration: 'none' }}>
+            <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+              Оформить заказ
+            </Button>
+          </Link>
+        )}
       </Box>
     </Container>
   );

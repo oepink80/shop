@@ -2,17 +2,21 @@ import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/system';
+import { useDispatch } from 'react-redux';
+
+import { setSearchQuery } from '@/store/actions/searchActions';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   flexGrow: 1,
-  width: '50%',
+  width: '200px',
+  marginRight: theme.spacing(10), // Используем функцию без фигурных скобок
   marginLeft: theme.spacing(1),
   borderRadius: theme.shape.borderRadius,
   backgroundColor: theme.palette.background.default,
   paddingLeft: theme.spacing(0.5),
-  transition: 'all 0.3s ease-in-out', // Или transition: `${theme.transitions.duration.short}ms linear`
+  transition: 'all 0.3s ease-in-out',
   '& .MuiInputBase-input': {
-    padding: `${theme.spacing(1)}px ${theme.spacing(1)}px`,
+    padding: `${theme.spacing(1)}px ${theme.spacing(1)}px`, // Используем интерполяцию
     fontSize: 'inherit',
     lineHeight: 'inherit',
     color: theme.palette.text.primary,
@@ -27,8 +31,11 @@ interface SearchFieldProps {
 }
 
 const SearchField = ({ onChange }: SearchFieldProps) => {
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    onChange(event.target.value);
+  const dispatch = useDispatch();
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchQuery(event.target.value));
+  };
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>

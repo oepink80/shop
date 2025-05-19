@@ -1,45 +1,62 @@
-// src/store/index.ts
-
+// store.ts
 import { configureStore } from '@reduxjs/toolkit';
+
 import cartReducer from '@/store/reducers/cartreducer';
 import productReducer from '@/store/reducers/productreducer';
-import userReducer from '@/store/slices/userSlice';
+import searchReducer from '@/store/reducers/searchReducer';
+import { CartState, ProductType } from '@/types/types';
 
-// Вспомогательная функция для сериализации и десериализации состояний
-const saveState = (state: any) => {
+// Описание типов приложения
+export interface RootState {
+  products: ProductsState;
+  cart: CartState;
+  search: SearchState;
+}
+
+export interface ProductsState {
+  list: ProductType[];
+}
+
+export interface SearchState {
+  searchQuery: string;
+}
+
+export type AppDispatch = typeof store.dispatch;
+
+// Функция сохранения состояния в Local Storage
+const saveState = (state: RootState) => {
   try {
-    const serializedState = JSON.stringify(state.cart); // Сохраняем только состояние корзины
-    window.localStorage.setItem('cart', serializedState);
+    const serializedState = JSON.stringify(state);
+    window.localStorage.setItem('app-state', serializedState);
   } catch (err) {
-    console.error('Error saving to local storage:', err);
+    console.error('Ошибка при сохранении состояния:', err);
   }
 };
 
+// Функция загрузки состояния из Local Storage
 const loadState = () => {
   try {
-    const serializedState = window.localStorage.getItem('cart'); // Читаем только состояние корзины
-    if (serializedState === null) return undefined;
-    return { cart: JSON.parse(serializedState) }; // Возвращаем объект с ключом 'order'
+    const serializedState = window.localStorage.getItem('app-state');
+    if (!serializedState) return undefined;
+    return JSON.parse(serializedState) as Partial<RootState>; // Частичная структура состояния
   } catch (err) {
-    console.error('Error loading from local storage:', err);
+    console.error('Ошибка при загрузке состояния:', err);
     return undefined;
   }
 };
 
-// Загружаем предыдущие значения из localStorage
-const persistedState = loadState();
 
-// Конфигурация стора
+// Настройка магазина Redux
 const store = configureStore({
   reducer: {
-    user: userReducer,
     products: productReducer,
     cart: cartReducer,
+    search: searchReducer,
   },
-  preloadedState: persistedState, // Используем загруженное состояние
+  preloadedState: loadState(),
 });
 
-// Сохраняем состояние корзины при каждом изменении
+// Обработчик изменений для сохранения состояния
 store.subscribe(() => {
   saveState(store.getState());
 });

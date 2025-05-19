@@ -21,7 +21,7 @@ interface CatalogItemProps {
 }
 
 const CatalogItem = ({ product }: CatalogItemProps): React.JSX.Element => {
-  const { id, title, price, imageUrl, description } = product;
+  const { id, title, price, imageUrl, description, category } = product;
   const dispatch = useDispatch();
 
   // Получаем количество товара из Redux-стора
@@ -66,6 +66,9 @@ const CatalogItem = ({ product }: CatalogItemProps): React.JSX.Element => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {description}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {category}
         </Typography>
         <Typography variant="h6" component="span">
           {price.toFixed(2)} ₽

@@ -10,15 +10,30 @@ export interface ProductType {
   imageUrl: string;
 }
 
+export interface ProductsState {
+  list: ProductType[];
+}
+
 export interface CartState {
   items: ProductType[]; // Список товаров в корзине
 }
 
 export interface UserState {
-  email?: string;
-  token?: string;
-  role?: string;
-  // Можно добавить любые нужные свойства
+  currentUser: CurrentUserInfo | null; // Позволяем хранить null, если пользователь не авторизован
+}
+
+// Информация о текущем авторизованном пользователе
+export interface CurrentUserInfo {
+  id: number; // Уникальный идентификатор пользователя
+  email: string; // Адрес электронной почты
+  username: string; // Имя пользователя
+  role: string; // Роль пользователя (администратор, клиент и т.д.)
+  token: string; // Токен аутентификации
+  avatarUrl?: string; // URL аватарки (опционально)
+  isAuthenticated: boolean; // Флаг, подтверждающий успешную авторизацию
+  profileCompleted: boolean; // Профиль заполнен (для регистрации и профилей)
+  createdAt: Date; // Дата регистрации
+  updatedAt: Date; // Дата последнего обновления профиля
 }
 
 export interface OrderInputData {
