@@ -1,21 +1,22 @@
-// src/pages/home.tsx
-
 import { Grid, Container } from '@mui/material';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CatalogItem from '@/components/catalog/CatalogItem';
+import InfiniteScrollLoader from '@/components/catalog/InfiniteScrollLoader';
 import ProductFilters from '@/components/catalog/ProductFilters';
 import { mockProducts } from '@/data/mockdata';
 import { selectSearchQuery } from '@/selectors/searchSelectors';
 import { setProducts } from '@/store/actions/productactions';
 import type { ProductType } from '@/types/types';
 
+import CatalogIitemModal from '@/components/catalog/CatalogIitemModal';
+
 type SortOption = 'asc' | 'desc';
 interface FilterOptions {
-  category?: string; // Категория фильтра
-  sortBy?: 'price' | 'title'; // Поле для сортировки
-  order?: SortOption; // Порядок сортировки
+  category?: string;
+  sortBy?: 'price' | 'title';
+  order?: SortOption;
 }
 
 export default function HomePage(): React.JSX.Element {
@@ -29,53 +30,60 @@ export default function HomePage(): React.JSX.Element {
 
   const [filterOptions, setFilterOptions] = React.useState<FilterOptions>({
     category: '',
-    sortBy: undefined, // Используем undefined, чтобы соответствовать типу
-    order: 'asc', // По возрастанию
+    sortBy: undefined,
+    order: 'asc',
   });
 
+  const [pageSize, setPageSize] = React.useState(8);
+  const [isLoadingMore, setIsLoadingMore] = React.useState(false);
+
+  const loadMoreItems = React.useCallback(() => {
+    if (!isLoadingMore) {
+      setIsLoadingMore(true);
+      setTimeout(() => {
+        setPageSize((prevPageSize) => prevPageSize + 8);
+        setIsLoadingMore(false);
+      }, 1000);
+    }
+  }, []);
+
+  const [selectedProduct, setSelectedProduct] =
+    React.useState<ProductType | null>(null);
+
+  const handleSelectItem = (product: ProductType) => {
+    setSelectedProduct(product);
+  };
+
+  const handleModalClose = () => {
+    setSelectedProduct(null);
+  };
+
   const uniqueCategories = Array.from(
-    new Set<string>(productsList.map((p: ProductType) => p.category)) // Указываем тип Set как Set<string>
-  );
+    new Set(productsList.map((p: ProductType) => String(p.category)))
+  ) as string[];
 
   const filteredAndSortedProducts = React.useMemo(() => {
-    let filteredProducts = [...productsList]; // Копируем исходный список
+    let filteredProducts = [...productsList];
 
-    // Применяем глобальную строку поиска
     if (searchQuery) {
       filteredProducts = filteredProducts.filter((product) =>
-        Object.values(product)
-          .map((value) => typeof value === 'string' ? value.toLowerCase() : '') // Проверяем тип значения
-          .some((val) => val.includes(searchQuery.toLowerCase())),
+        Object.values(product).some(
+          (val) =>
+            typeof val === 'string' &&
+            val.toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
       );
     }
 
-    // Фильтруем по категории
     if (filterOptions.category && filterOptions.category.trim() !== '') {
       filteredProducts = filteredProducts.filter(
         (product) => product.category === filterOptions.category,
       );
     }
 
-    // Выполняем сортировку
-    if (filterOptions.sortBy) {
-      filteredProducts.sort((a, b) => {
-        switch (filterOptions.sortBy) {
-          case 'price': // Цена
-            return filterOptions.order === 'asc'
-              ? parseFloat(a.price) - parseFloat(b.price)
-              : parseFloat(b.price) - parseFloat(a.price);
-          case 'title': // Название
-            return filterOptions.order === 'asc'
-              ? a.title.localeCompare(b.title)
-              : b.title.localeCompare(a.title);
-          default:
-            return 0;
-        }
-      });
-    }
+    return filteredProducts.slice(0, pageSize);
+  }, [productsList, searchQuery, filterOptions, pageSize]);
 
-    return filteredProducts;
-  }, [searchQuery, filterOptions, productsList]);
   return (
     <div className="home-page">
       <h1>Интернет-магазин электроники</h1>
@@ -89,14 +97,30 @@ export default function HomePage(): React.JSX.Element {
           {filteredAndSortedProducts.length > 0 ? (
             filteredAndSortedProducts.map((product: ProductType) => (
               <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={product.id}>
-                <CatalogItem product={product} />
+                <CatalogItem
+                  product={product}
+                  onSelectItem={handleSelectItem}
+                />
               </Grid>
             ))
           ) : (
             <p>Нет товаров</p>
           )}
+          <InfiniteScrollLoader
+            isLoadingMore={isLoadingMore}
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            loadMoreItems={loadMoreItems}
+          />
         </Grid>
       </Container>
+      {selectedProduct && (
+        <CatalogIitemModal
+          isOpen={true}
+          onClose={handleModalClose}
+          itemData={selectedProduct}
+        />
+      )}
     </div>
   );
 }

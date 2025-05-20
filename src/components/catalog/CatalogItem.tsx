@@ -1,5 +1,3 @@
-// components/catalog/CatalogItem.tsx
-
 import {
   Card,
   CardMedia,
@@ -18,9 +16,13 @@ import type { ProductType } from '@/types/types';
 
 interface CatalogItemProps {
   product: ProductType;
+  onSelectItem?: (product: ProductType) => void; // Колбэк для открытия модала
 }
 
-const CatalogItem = ({ product }: CatalogItemProps): React.JSX.Element => {
+const CatalogItem = ({
+  product,
+  onSelectItem, // Получаем callback для открытия модального окна
+}: CatalogItemProps): React.JSX.Element => {
   const { id, title, price, imageUrl, description, category } = product;
   const dispatch = useDispatch();
 
@@ -47,17 +49,17 @@ const CatalogItem = ({ product }: CatalogItemProps): React.JSX.Element => {
         marginBottom: '10px',
         alignItems: 'center',
         '&:hover': {
-          boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1)', // Мягкая тень при наведении
+          boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1)',
         },
       }}
     >
       {imageUrl && (
         <CardMedia
           component="img"
-          height="200" // Фиксированная высота изображения
+          height="200"
           image={imageUrl}
           alt={title}
-          sx={{ objectFit: 'contain' }}
+          sx={{ objectFit: 'cover' }}
         />
       )}
       <CardContent sx={{ flexGrow: 1 }}>
@@ -68,7 +70,7 @@ const CatalogItem = ({ product }: CatalogItemProps): React.JSX.Element => {
           {description}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {category}
+          Категория: {category}
         </Typography>
         <Typography variant="h6" component="span">
           {price.toFixed(2)} ₽
@@ -84,17 +86,35 @@ const CatalogItem = ({ product }: CatalogItemProps): React.JSX.Element => {
           size="small"
           onClick={handleAddToCart}
           sx={{
-            backgroundColor: (theme) => theme.palette.primary.main, // Основной цвет темы
-            color: '#FFF', // Цвет текста
-            borderRadius: '16px', // Закруглённые края
-            padding: '8px 16px', // Отступы
+            backgroundColor: (theme) => theme.palette.primary.main,
+            color: '#FFF',
+            borderRadius: '16px',
+            padding: '8px 16px',
             '&:hover': {
-              backgroundColor: (theme) => theme.palette.primary.dark, // Цвет при наведении
+              backgroundColor: (theme) => theme.palette.primary.dark,
             },
           }}
         >
-          Добавить в корзину
+          В корзину
         </Button>
+        {onSelectItem && (
+          <Button
+            size="small"
+            onClick={() => onSelectItem(product)}
+            sx={{
+              ml: 1, // Небольшой отступ слева
+              backgroundColor: (theme) => theme.palette.grey[300],
+              color: '#000',
+              borderRadius: '16px',
+              padding: '8px 16px',
+              '&:hover': {
+                backgroundColor: (theme) => theme.palette.grey[400],
+              },
+            }}
+          >
+            Подробнее
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
