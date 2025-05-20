@@ -17,10 +17,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserAction(state, action) {
-      return action.payload; // Важно убедиться, что новый объект корректно установлен
+      return action.payload;
     },
     logoutAction() {
-      return null; // Очищаем пользователя при выходе
+      return null;
     },
   },
 });

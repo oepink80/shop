@@ -4,6 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import cartReducer from '@/store/reducers/cartreducer';
 import productReducer from '@/store/reducers/productreducer';
 import searchReducer from '@/store/reducers/searchReducer';
+import userReducer from '@/store/slices/userSlice';
 import { CartState, ProductType } from '@/types/types';
 
 // Описание типов приложения
@@ -52,6 +53,7 @@ const store = configureStore({
     products: productReducer,
     cart: cartReducer,
     search: searchReducer,
+    user: userReducer,
   },
   preloadedState: loadState(),
 });

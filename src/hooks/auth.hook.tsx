@@ -29,17 +29,14 @@ export function useAuth() {
   const dispatch = useDispatch();
   const [initializing, setInitializing] = useState(true);
 
-  // ✅ Сохраняем полный объект пользователя в localStorage
   const saveUserToLocalStorage = (user: UserDetails & { token: string }) => {
     window.localStorage.setItem('user', JSON.stringify(user));
   };
 
-  // ✅ Очищаем пользователя при выходе
   const clearUserFromLocalStorage = () => {
     window.localStorage.removeItem('user');
   };
 
-  // Поиск подходящего пользователя по учетным данным
   const findMatchingUser = (
     credentials: UserCredentials,
   ): UserDetails | null => {
@@ -52,7 +49,6 @@ export function useAuth() {
     );
   };
 
-  // ✅ Функция входа
   const signIn = async (credentials: UserCredentials) => {
     setLoading(true);
     setErrorMessage(null);
@@ -63,31 +59,32 @@ export function useAuth() {
         throw new Error('Неверное имя пользователя или пароль!');
       }
 
-      // Генерация токена
       const token = Math.random().toString(36).substring(7);
 
-      // Формирование объекта пользователя с токеном
       const userWithToken = { ...matchingUser, token };
 
-      // ✅ Сохраняем полноценного пользователя в localStorage
       saveUserToLocalStorage(userWithToken);
 
-      // ✅ Отправляем объект пользователя в Redux
       dispatch(setUserAction(userWithToken));
     } catch (error) {
-      setErrorMessage((error as Error).message || 'Ошибка авторизации');
+      let message = '';
+      if (error instanceof Error) {
+        message = error.message;
+      } else {
+        message = String(error); // Преобразование в строку, если ошибка другого типа
+      }
+      console.error('Ошибка авторизации:', message); // Сообщение об ошибке
+      setErrorMessage(message || 'Ошибка авторизации');
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ Функция выхода
   const logout = () => {
     clearUserFromLocalStorage();
     dispatch(setUserAction(null));
   };
 
-  // ✅ Загрузка пользователя при монтировании компонента
   useEffect(() => {
     const loadUserFromLocalStorage = () => {
       const storedUser = window.localStorage.getItem('user');
