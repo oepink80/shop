@@ -1,8 +1,16 @@
-import { Button, TextField, Box, Typography, Alert, CircularProgress } from '@mui/material';
+import {
+  Button,
+  TextField,
+  Box,
+  Typography,
+  Alert,
+  CircularProgress,
+} from '@mui/material';
 import { useTheme } from '@mui/system';
-import { useDispatch } from 'react-redux';
-import { setUserAction } from '@/store/slices/userSlice';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { setUserAction } from '@/store/slices/userSlice';
 
 interface RegistrationFields {
   firstName: string;
@@ -27,17 +35,22 @@ const RegistrationPage = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>(Object.create(null));
+  const [errors, setErrors] = useState<Record<string, string>>(
+    Object.create(null),
+  );
 
   const validateFields = () => {
     const errorsObj: Record<string, string> = {};
 
     if (!fields.firstName.trim()) errorsObj.firstName = 'Укажите ваше имя.';
     if (!fields.lastName.trim()) errorsObj.lastName = 'Укажите вашу фамилию.';
-    if (!fields.email.includes('@')) errorsObj.email = 'Укажите правильный e-mail.';
+    if (!fields.email.includes('@'))
+      errorsObj.email = 'Укажите правильный e-mail.';
     if (!fields.username.trim()) errorsObj.username = 'Укажите ваш логин.';
-    if (fields.password.length < 6) errorsObj.password = 'Минимальная длина пароля — 6 символов.';
-    if (fields.confirmPassword !== fields.password) errorsObj.confirmPassword = 'Пароли не совпадают.';
+    if (fields.password.length < 6)
+      errorsObj.password = 'Минимальная длина пароля — 6 символов.';
+    if (fields.confirmPassword !== fields.password)
+      errorsObj.confirmPassword = 'Пароли не совпадают.';
 
     return Object.keys(errorsObj).length > 0 ? errorsObj : null;
   };
@@ -45,6 +58,9 @@ const RegistrationPage = () => {
   const registerUser = () => {
     const token = Math.random().toString(36).substring(7); // Генерация случайного токена
     const userForStore = {
+      firstName: fields.firstName,
+      lastName: fields.lastName,
+      email: fields.email,
       username: fields.username,
       token,
       role: 'USER',
@@ -70,9 +86,11 @@ const RegistrationPage = () => {
     alert('Регистрация выполнена успешно!');
   };
 
-  const handleChange = (field: keyof RegistrationFields) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFields(prev => ({ ...prev, [field]: event.target.value }));
-  };
+  const handleChange =
+    (field: keyof RegistrationFields) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFields((prev) => ({ ...prev, [field]: event.target.value }));
+    };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -97,8 +115,20 @@ const RegistrationPage = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-      <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+      }}
+    >
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        noValidate
+        autoComplete="off"
+      >
         <Typography variant="h4" gutterBottom>
           Регистрация
         </Typography>
