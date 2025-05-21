@@ -26,6 +26,9 @@ export interface UserState {
 // Информация о текущем авторизованном пользователе
 export interface CurrentUserInfo {
   id: number; // Уникальный идентификатор пользователя
+  firstName: string; // Имя
+  lastName: string; // Фамилия
+  address: string; // Адрес
   email: string; // Адрес электронной почты
   username: string; // Имя пользователя
   role: string; // Роль пользователя (администратор, клиент и т.д.)
