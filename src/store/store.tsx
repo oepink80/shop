@@ -46,7 +46,6 @@ const loadState = () => {
   }
 };
 
-
 // Настройка магазина Redux
 const store = configureStore({
   reducer: {

@@ -2,9 +2,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import { styled } from '@mui/system';
-import { useDispatch } from 'react-redux';
-
-import { setSearchQuery } from '@/store/actions/searchActions';
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   flexGrow: 1,
@@ -31,17 +28,11 @@ interface SearchFieldProps {
 }
 
 const SearchField = ({ onChange }: SearchFieldProps) => {
-  const dispatch = useDispatch();
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchQuery(event.target.value));
-  };
-
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <StyledInputBase
         placeholder="Поиск..."
-        onChange={handleSearchChange}
+        onChange={(event) => onChange(event.target.value)}
         fullWidth
       />
       <IconButton type="submit" aria-label="search">

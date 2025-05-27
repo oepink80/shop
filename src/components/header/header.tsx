@@ -6,12 +6,12 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { styled } from '@mui/system';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { setSearchQuery } from '@/store/actions/searchActions';
 import { RootState } from '@/types/types';
 
 import AuthControls from './authcontrols';
@@ -39,6 +39,10 @@ const Header = () => {
   const user = useSelector((state: RootState) => state.user); // Пользователь
   const loggedIn = Boolean(user); // Логинимость пользователя
   const [drawerOpen, setDrawerOpen] = useState(false); // Управление состоянием меню гамбургера
+  const dispatch = useDispatch();
+  const handleSearchChange = (value: string) => {
+    dispatch(setSearchQuery(value));
+  };
 
   const toggleDrawer = (open: boolean) => (event: React.SyntheticEvent) => {
     if (
@@ -51,14 +55,12 @@ const Header = () => {
     setDrawerOpen(open);
   };
 
-  const handleSearchChange = (value: string) => {
-    console.log(value); // позже реализуется поиск
-  };
-
   return (
     <StyledAppBar position="static">
       <Toolbar>
-        <Box sx={{ display: 'flex', alignItems: 'center', flex: 1, width: '100%' }}>
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', flex: 1, width: '100%' }}
+        >
           <Logo />
           <SearchField onChange={handleSearchChange} />
         </Box>

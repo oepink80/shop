@@ -106,7 +106,7 @@ export function useAuth() {
     }
 
     setInitializing(false);
-  }, []);
+  }, [dispatch]);
 
   return {
     loading,

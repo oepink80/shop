@@ -2,9 +2,9 @@
 
 import { Routes, Route, Navigate } from 'react-router-dom';
 
+import CartPage from '@/pages/cart';
 import HomePage from '@/pages/home';
 import LoginPage from '@/pages/login';
-import CartPage from '@/pages/cart';
 import RegisterPage from '@/pages/register';
 
 const RootRoutes = () => (

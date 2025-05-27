@@ -1,6 +1,4 @@
 import type { ProductType } from '@/types/types';
-import { saveCartState } from '@/utils/localstorage'; // Импортируем метод сохранения состояния
-
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
@@ -12,6 +10,7 @@ import {
   DecreaseQuantityAction,
   CLEAR_CART,
 } from '@/types/types';
+import { saveCartState } from '@/utils/localstorage'; // Импортируем метод сохранения состояния
 
 export const addToCart = (product: ProductType): AddToCartAction => {
   const action = {

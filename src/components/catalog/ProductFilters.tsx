@@ -15,7 +15,9 @@ interface ProductFiltersProps {
   setFilterOptions: React.Dispatch<React.SetStateAction<FilterOptions>>;
 }
 
-export default function ProductFilters(props: ProductFiltersProps): React.JSX.Element {
+export default function ProductFilters(
+  props: ProductFiltersProps,
+): React.JSX.Element {
   const { categories, filterOptions, setFilterOptions } = props;
 
   return (
@@ -43,7 +45,9 @@ export default function ProductFilters(props: ProductFiltersProps): React.JSX.El
         >
           <MenuItem value="">Все категории</MenuItem>
           {categories.map((category) => (
-            <MenuItem key={category} value={category}>{category}</MenuItem>
+            <MenuItem key={category} value={category}>
+              {category}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -65,7 +69,9 @@ export default function ProductFilters(props: ProductFiltersProps): React.JSX.El
       </FormControl>
 
       <FormControl variant="standard" style={{ minWidth: 180 }}>
-        <InputLabel id="sort-order-select-label">Порядок сортировки:</InputLabel>
+        <InputLabel id="sort-order-select-label">
+          Порядок сортировки:
+        </InputLabel>
         <Select
           labelId="sort-order-select-label"
           value={filterOptions.order}

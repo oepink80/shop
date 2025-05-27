@@ -1,6 +1,7 @@
 // src/store/slices/userSlice.tsx
 
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+
 import { CurrentUserInfo } from '@/types/types'; // Импортируем интерфейс пользователя
 
 type InitialState = CurrentUserInfo | null; // Стартовое состояние - может быть null или пользователь

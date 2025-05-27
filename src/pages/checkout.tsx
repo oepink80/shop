@@ -1,4 +1,5 @@
 import { Paper, Typography, Modal, Box, Button } from '@mui/material';
+import { nanoid } from 'nanoid';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +9,6 @@ import OrderForm from '@/components/order/OrderForm';
 import { clearCart } from '@/store/actions/cartactions';
 import { addOrder } from '@/store/actions/orderactions';
 import type { OrderInputData, ProductType } from '@/types/types';
-import { nanoid } from 'nanoid';
 
 const style = {
   position: 'absolute',
@@ -41,7 +41,10 @@ export default function CheckoutPage() {
   // устанавливаем пакет для генерации уникальных ID
 
   const calculateTotalAmount = (products: Array<ProductType>) => {
-    return products.reduce((acc, product) => acc + product.price * product.quantity, 0);
+    return products.reduce(
+      (acc, product) => acc + product.price * product.quantity,
+      0,
+    );
   };
   const generateUniqueId = () => nanoid();
 
@@ -69,7 +72,7 @@ export default function CheckoutPage() {
       dispatch(clearCart());
 
       // Сохраняем заказ в LocalStorage
-      let currentOrders = JSON.parse(localStorage.getItem('orders') ?? '[]');
+      const currentOrders = JSON.parse(localStorage.getItem('orders') ?? '[]');
       currentOrders.push(completeOrder);
       localStorage.setItem('orders', JSON.stringify(currentOrders));
 

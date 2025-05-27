@@ -5,7 +5,6 @@ import {
   DECREASE_QUANTITY,
   CLEAR_CART,
 } from '@/types/types';
-
 import type { ProductType } from '@/types/types';
 
 type CartState = {

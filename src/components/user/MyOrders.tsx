@@ -11,6 +11,7 @@ import {
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
+
 import { ProductType } from '@/types/types'; // Импорт createSelector
 
 // Типизация
@@ -31,7 +32,7 @@ type OrderType = {
 // Мемоизированный селектор
 const selectAllOrders = createSelector(
   [(state: any) => state.orders],
-  (orders) => orders || []
+  (orders) => orders || [],
 );
 
 export default function MyOrders() {
@@ -40,13 +41,12 @@ export default function MyOrders() {
 
   const ordersFromLS = JSON.parse(localStorage.getItem('orders') ?? '[]');
 
-
   // Объединяем два массива заказов
   const allOrders = [...orders, ...ordersFromLS].filter(Boolean);
 
   // Сортируем заказы по дате (новые сверху)
-  const sortedOrders = allOrders.sort((a, b) =>
-    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  const sortedOrders = allOrders.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   );
 
   // Если заказов нет, возвращаем соответствующее сообщение
@@ -76,14 +76,18 @@ export default function MyOrders() {
           {sortedOrders.map((order: OrderType) => (
             <TableRow key={order.id}>
               <TableCell>{order.id}</TableCell>
-              <TableCell>{new Date(order.createdAt).toLocaleDateString()}</TableCell>
+              <TableCell>
+                {new Date(order.createdAt).toLocaleDateString()}
+              </TableCell>
               <TableCell>
                 {typeof order.totalAmount === 'number'
                   ? `${order.totalAmount.toFixed(2)} ₽`
                   : 'Сумма неизвестна'}
               </TableCell>
               <TableCell>
-                {Array.isArray(order.products) ? order.products.length : 'Нет товаров'}
+                {Array.isArray(order.products)
+                  ? order.products.length
+                  : 'Нет товаров'}
               </TableCell>
               <TableCell>{order.status}</TableCell>
             </TableRow>

@@ -9,7 +9,7 @@ interface InfiniteScrollProps {
 }
 
 export default function InfiniteScrollLoader(props: InfiniteScrollProps) {
-  const { isLoadingMore, pageSize, setPageSize, loadMoreItems } = props;
+  const { loadMoreItems } = props;
   const observerTargetRef = useRef<HTMLDivElement | null>(null);
 
   const handleIntersection = useCallback(

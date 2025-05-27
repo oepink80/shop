@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom';
 
-import logoImage from '/images/logo.png';
-
 const Logo = () => {
   return (
     <Link to="/" style={{ textDecoration: 'none', color: '#fff' }}>
       <img
-        src={logoImage}
+        src="/images/logo.png"
         alt="Logo"
         height={40}
         style={{ verticalAlign: 'middle' }}

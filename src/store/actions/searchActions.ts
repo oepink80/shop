@@ -1,5 +1,3 @@
-import type { AppDispatch } from '../store';
-
 export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY';
 
 export const setSearchQuery = (query: string) => ({

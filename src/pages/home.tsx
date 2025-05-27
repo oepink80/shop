@@ -2,6 +2,7 @@ import { Grid, Container } from '@mui/material';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import CatalogIitemModal from '@/components/catalog/CatalogIitemModal';
 import CatalogItem from '@/components/catalog/CatalogItem';
 import InfiniteScrollLoader from '@/components/catalog/InfiniteScrollLoader';
 import ProductFilters from '@/components/catalog/ProductFilters';
@@ -9,8 +10,6 @@ import { mockProducts } from '@/data/mockdata';
 import { selectSearchQuery } from '@/selectors/searchSelectors';
 import { setProducts } from '@/store/actions/productactions';
 import type { ProductType } from '@/types/types';
-
-import CatalogIitemModal from '@/components/catalog/CatalogIitemModal';
 
 type SortOption = 'asc' | 'desc';
 interface FilterOptions {
@@ -26,7 +25,7 @@ export default function HomePage(): React.JSX.Element {
 
   React.useEffect(() => {
     dispatch(setProducts(mockProducts));
-  }, []);
+  }, [dispatch]);
 
   const [filterOptions, setFilterOptions] = React.useState<FilterOptions>({
     category: '',
@@ -45,7 +44,7 @@ export default function HomePage(): React.JSX.Element {
         setIsLoadingMore(false);
       }, 1000);
     }
-  }, []);
+  }, [isLoadingMore]);
 
   const [selectedProduct, setSelectedProduct] =
     React.useState<ProductType | null>(null);
@@ -59,7 +58,7 @@ export default function HomePage(): React.JSX.Element {
   };
 
   const uniqueCategories = Array.from(
-    new Set(productsList.map((p: ProductType) => String(p.category)))
+    new Set(productsList.map((p: ProductType) => String(p.category))),
   ) as string[];
 
   const filteredAndSortedProducts = React.useMemo(() => {

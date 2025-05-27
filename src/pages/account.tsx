@@ -1,13 +1,12 @@
 // src/pages/account.tsx
 
+import { Tab, Tabs, Box } from '@mui/material';
 import * as React from 'react';
-import { Tab, Tabs, Box, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 
-// Предполагаемые компоненты
+import AdminPanel from '@/components/admin/AdminPanel'; // Панель администратора
 import MyOrders from '@/components/user/MyOrders'; // История заказов
 import ProfileInfo from '@/components/user/ProfileInfo'; // Личные данные
-import AdminPanel from '@/components/admin/AdminPanel'; // Панель администратора
 
 // Типизация
 enum TabValue {
@@ -20,8 +19,8 @@ export default function AccountPage() {
   const role = useSelector((state: any) => state.user.role); // предполагаемая структура ролей
   const [value, setValue] = React.useState<TabValue>(TabValue.PROFILE);
 
-  const handleChange = (_event: React.ChangeEvent<{}>, newValue: TabValue) => {
-    setValue(newValue);
+  const handleChange = (event: React.SyntheticEvent, value: any) => {
+    setValue(value as TabValue);
   };
 
   return (
@@ -32,7 +31,9 @@ export default function AccountPage() {
         <Tabs value={value} onChange={handleChange} centered>
           <Tab label="Мои заказы" value={TabValue.ORDERS} />
           <Tab label="Личные данные" value={TabValue.PROFILE} />
-          {role === 'ADMIN' && <Tab label="Администрирование" value={TabValue.ADMIN} />}
+          {role === 'ADMIN' && (
+            <Tab label="Администрирование" value={TabValue.ADMIN} />
+          )}
         </Tabs>
       </Box>
 

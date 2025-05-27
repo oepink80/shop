@@ -7,11 +7,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { ProductType } from '@/types/types';
+import { UnknownAction } from 'redux';
 
 import { getCartQuantityByProductId } from '@/selectors/cartSelectors';
 import { addToCart } from '@/store/actions/cartactions';
-import { UnknownAction } from 'redux';
+import type { ProductType } from '@/types/types';
 
 interface CatalogItemModalProps {
   isOpen: boolean; // Признак открытости модального окна
@@ -28,7 +28,7 @@ const CatalogIitemModal = ({
 
   // Обработчик нажатия кнопки "Купить"
   const handleBuyClick = () => {
-    dispatch(addToCart(itemData)  as unknown as UnknownAction); // Отправляем товар в корзину
+    dispatch(addToCart(itemData) as unknown as UnknownAction); // Отправляем товар в корзину
   };
 
   const quantity = useSelector((state) =>

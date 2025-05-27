@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'; // Экшн для сброса пол�
 
 import { setUserAction } from '@/store/slices/userSlice';
 
-const StyledDiv = styled('div')(({ theme }) => ({
+const StyledDiv = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -46,8 +46,8 @@ const AuthControls = ({ isLoggedIn }: AuthControlsProps) => {
   const dispatch = useDispatch();
 
   const logout = () => {
-    window.localStorage.removeItem('user');   // Удаляем данные текущего пользователя
-    window.localStorage.removeItem('cart');   // Добавляем удаление корзины
+    window.localStorage.removeItem('user'); // Удаляем данные текущего пользователя
+    window.localStorage.removeItem('cart'); // Добавляем удаление корзины
     dispatch(setUserAction(null));
   };
 

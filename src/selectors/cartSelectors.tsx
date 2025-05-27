@@ -1,6 +1,7 @@
 // selectors/cartSelectors.ts
 
 import { createSelector } from '@reduxjs/toolkit';
+
 import type { ProductType } from '@/types/types';
 
 export const getCartQuantityByProductId = createSelector(

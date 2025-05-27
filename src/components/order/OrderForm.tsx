@@ -42,7 +42,7 @@ export default function OrderForm({ onSubmit }: Props) {
     resolver: yupResolver(validationSchema),
   });
 
-  const { control, handleSubmit, reset } = formMethods;
+  const { control, handleSubmit } = formMethods;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

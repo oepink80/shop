@@ -17,7 +17,6 @@ const LoginPage = () => {
     await signIn(formData);
   };
 
-
   return (
     <Box
       sx={{
