@@ -13,6 +13,7 @@ import {
 import { saveCartState } from '@/utils/localstorage'; // Импортируем метод сохранения состояния
 
 export const addToCart = (product: ProductType): AddToCartAction => {
+  console.info('Adding product to cart:', product);
   const action = {
     type: ADD_TO_CART as typeof ADD_TO_CART,
     payload: product,

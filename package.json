@@ -9,9 +9,13 @@
         "preview": "vite preview",
         "prepare": "husky",
         "lint": "eslint src --ignore-path .gitignore",
-        "check-types": "tsc --project tsconfig.json --pretty --noEmit"
+        "check-types": "tsc --project tsconfig.json --pretty --noEmit",
+        "test": "jest"
     },
     "dependencies": {
+        "@babel/core": "^7.27.3",
+        "@babel/preset-env": "^7.27.2",
+        "@babel/preset-react": "^7.27.1",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
         "@hookform/resolvers": "^5.0.1",
@@ -57,10 +61,12 @@
         "eslint-plugin-vitest": "^0.5.4",
         "express": "^4.19.2",
         "husky": "^9.0.11",
+        "jest-environment-jsdom": "^30.0.0-beta.3",
         "jsdom": "^24.0.0",
         "lint-staged": "^15.2.2",
         "msw": "^2.2.14",
         "prettier": "^3.2.5",
+        "ts-jest": "^29.3.2",
         "typescript": "5.4.5",
         "vite": "^5.2.10",
         "vite-node": "^1.6.0",

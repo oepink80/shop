@@ -32,6 +32,7 @@ const _CatalogItem = ({
   );
 
   const handleAddToCart = React.useCallback(() => {
+    console.log('Click btn = Adding product to cart:', product);
     dispatch(addToCart(product) as unknown as UnknownAction); // Добавляем товар в корзину
   }, [dispatch, product]);
 
@@ -82,6 +83,7 @@ const _CatalogItem = ({
       </CardContent>
       <CardActions>
         <Button
+          id={`add-to-cart-button-${id}`}
           size="small"
           onClick={handleAddToCart}
           sx={{

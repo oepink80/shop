@@ -42,7 +42,7 @@ export default function HomePage(): React.JSX.Element {
       setTimeout(() => {
         setPageSize((prevPageSize) => prevPageSize + 8);
         setIsLoadingMore(false);
-      }, 1000);
+      }, 100);
     }
   }, [isLoadingMore]);
 

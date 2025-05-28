@@ -34,5 +34,5 @@ export default function InfiniteScrollLoader(props: InfiniteScrollProps) {
     return () => observer.disconnect();
   }, [handleIntersection]);
 
-  return <div ref={observerTargetRef}></div>;
+  return <div ref={observerTargetRef} data-testid="infinite-loader"></div>;
 }
