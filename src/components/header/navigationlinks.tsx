@@ -2,6 +2,7 @@ import {
   ShoppingCart,
   LocalShipping,
   AccountCircle,
+  Newspaper,
 } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import { Link } from 'react-router-dom';
@@ -29,6 +30,9 @@ type NavigationLinksProps = {
 const NavigationLinks = ({ isLoggedIn }: NavigationLinksProps) => {
   return (
     <>
+      <StyledLink to="/news">
+        <Newspaper /> Новости
+      </StyledLink>
       <StyledLink to="/cart">
         <ShoppingCart /> Корзина
       </StyledLink>
